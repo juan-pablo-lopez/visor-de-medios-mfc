@@ -1,0 +1,29 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build outputs
+dist/
+build/
+
+# Local environment files
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Content media files
+content/videos/*.mp4
+content/videos/*.mov
+content/videos/*.avi
+content/videos/*.mkv
+
+content/docs/*.pdf
+
+content/flashcards/*/media/*
