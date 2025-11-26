@@ -1,0 +1,175 @@
+openapi: 3.1.0
+info:
+  title: API de Visor de Medios MFC
+  version: 1.0.0
+servers:
+  - url: /api
+paths:
+  /docs:
+    get:
+      summary: Lista todos los documentos
+      responses:
+        '200':
+          description: Lista de documentos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /docs/{id}:
+    get:
+      summary: Obtiene un documento por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Documento encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: string }
+                  content: { type: string }
+        '404':
+          description: Documento no encontrado
+  /videos:
+    get:
+      summary: Lista todos los videos
+      responses:
+        '200':
+          description: Lista de videos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /videos/stream/{filename}:
+    get:
+      summary: Transmite un video por nombre
+      parameters:
+        - name: filename
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Stream de video
+          content:
+            video/mp4: {}
+        '404':
+          description: Video no encontrado
+  /flashcards:
+    get:
+      summary: Lista todos los temas
+      responses:
+        '200':
+          description: Lista de temas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  topics:
+                    type: array
+                    items: { type: string }
+  /flashcards/{topic}:
+    get:
+      summary: Lista todas las tarjetas de un tema
+      parameters:
+        - name: topic
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tarjetas del tema
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  topic: { type: string }
+                  cards:
+                    type: array
+                    items: { type: string }
+  /flashcards/{topic}/card/{id}:
+    get:
+      summary: Obtiene una tarjeta específica
+      parameters:
+        - name: topic
+          in: path
+          required: true
+          schema: { type: string }
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Tarjeta encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: string }
+                  front: { type: string }
+                  back: { type: string }
+  /flashcards/{topic}/random/start:
+    get:
+      summary: Inicia orden aleatorio de tarjetas
+      parameters:
+        - name: topic
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Orden generado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  topic: { type: string }
+                  order:
+                    type: array
+                    items: { type: string }
+  /flashcards/{topic}/random/next/{index}:
+    get:
+      summary: Obtiene la siguiente tarjeta en orden aleatorio
+      parameters:
+        - name: topic
+          in: path
+          required: true
+          schema: { type: string }
+        - name: index
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Tarjeta siguiente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  topic: { type: string }
+                  cardId: { type: string }
+                  index: { type: integer }
+                  card:
+                    type: object
+                    properties:
+                      id: { type: string }
+                      front: { type: string }
+                      back: { type: string }

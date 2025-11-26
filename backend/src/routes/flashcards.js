@@ -6,6 +6,9 @@ import {
   getRandomOrder,
 } from "../services/flashcards.js";
 
+const topicOrderSequential = {};
+const topicOrderRandom = {};
+
 export default async function routes(fastify) {
 
   /* ---- LISTAR TOPICS ---- */
@@ -31,7 +34,6 @@ export default async function routes(fastify) {
   /* ====================================================== */
   /*                    SECUENCIAL                          */
   /* ====================================================== */
-
   fastify.get("/:topic/sequence/start", async (req, reply) => {
     const { topic } = req.params;
 
@@ -41,15 +43,20 @@ export default async function routes(fastify) {
       return reply.code(404).send({ error: "No hay más tarjetas en este tema." });
     }
 
+    topicOrderSequential[topic] = order;
+
     return { topic, order };
   });
 
   fastify.get("/:topic/sequence/next/:index", async (req, reply) => {
     const { topic, index } = req.params;
-
-    const order = await getSequentialOrder(topic);
-
     const idx = parseInt(index);
+
+    const order = topicOrderSequential[topic];
+    if (!order) {
+      return reply.code(400).send({ error: "Debes iniciar con /start primero." });
+    }
+
     if (idx >= order.length) {
       return reply.code(404).send({ error: "No hay más tarjetas en este tema." });
     }
@@ -68,7 +75,6 @@ export default async function routes(fastify) {
   /* ===================================================== */
   /*                    ALEATORIO                          */
   /* ===================================================== */
-
   fastify.get("/:topic/random/start", async (req, reply) => {
     const { topic } = req.params;
 
@@ -78,17 +84,23 @@ export default async function routes(fastify) {
       return reply.code(404).send({ error: "No hay más tarjetas en este tema." });
     }
 
+    topicOrderRandom[topic] = order;
+
     return { topic, order };
   });
 
+  // Endpoint para obtener la siguiente tarjeta
   fastify.get("/:topic/random/next/:index", async (req, reply) => {
     const { topic, index } = req.params;
-
-    const order = await getRandomOrder(topic);
     const idx = parseInt(index);
 
+    const order = topicOrderRandom[topic];
+    if (!order) {
+      return reply.code(400).send({ error: "Debes iniciar con /start primero." });
+    }
+
     if (idx >= order.length) {
-      return reply.code(404).send({ error: "No hay más tarjetas." });
+      return reply.code(404).send({ error: "No hay más tarjetas en este tema." });
     }
 
     const cardId = order[idx];

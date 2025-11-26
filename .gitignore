@@ -1,29 +1,76 @@
-# Node
+# ==============================
+# Node / NPM
+# ==============================
 node_modules/
 npm-debug.log
 yarn-error.log
+pnpm-debug.log
 
+# package manager cache
+.npm/
+.pnpm-store/
+
+# ==============================
 # Build outputs
+# ==============================
 dist/
 build/
 
-# Local environment files
+# Vitest cache
+.vitest/
+coverage/
+
+# ==============================
+# Environment
+# ==============================
 .env
 .env.*
 
+# ==============================
 # OS files
+# ==============================
 .DS_Store
 Thumbs.db
+desktop.ini
 
+# ==============================
 # Logs
+# ==============================
 *.log
+logs/
 
-# Content media files
-content/videos/*.mp4
-content/videos/*.mov
-content/videos/*.avi
-content/videos/*.mkv
+# ==============================
+# Content — IGNORE MEDIA FILES ONLY
+# (no ignorar los directorios, solo archivos de medios)
+# ==============================
 
-content/docs/*.pdf
+# Videos
+content/videos/**/*.mp4
+content/videos/**/*.mov
+content/videos/**/*.avi
+content/videos/**/*.mkv
+content/videos/**/*.webm
 
+# Docs: PDFs or binary docs
+content/docs/**/*.pdf
+content/docs/**/*.docx
+content/docs/**/*.pptx
+
+# Flashcards: cualquier archivo multimedia interno
 content/flashcards/*/media/*
+
+# ==============================
+# Editor / IDE Config
+# ==============================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==============================
+# Backup files
+# ==============================
+*.bak
+*.tmp
+*.temp
+*~

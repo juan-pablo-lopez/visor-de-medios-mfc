@@ -1,19 +1,38 @@
 import fs from "fs-extra";
 import path from "path";
 
-const BASE_PATH = path.resolve("content/flashcards");
+const BASE_PATH = path.resolve("../content/flashcards");
 
 export async function listTopics() {
-  return await fs.readdir(BASE_PATH);
+  try {
+    const items = await fs.readdir(BASE_PATH, { withFileTypes: true });
+    return items
+      .filter(item => item.isDirectory())
+      .map(item => item.name);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      console.log(`Advertencia: La ruta de tarjetas '${BASE_PATH}' no existe.`);
+      return []; 
+    }
+    throw error;
+  }
 }
+
 
 export async function listCards(topic) {
   const topicPath = path.join(BASE_PATH, topic);
-  const files = await fs.readdir(topicPath);
-
-  return files
-    .filter((f) => f.endsWith(".json"))
-    .map((f) => f.replace(".json", ""));
+  try {
+    const files = await fs.readdir(topicPath);
+    return files
+      .filter((f) => f.endsWith(".json"))
+      .map((f) => f.replace(".json", ""));
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      console.log(`Advertencia: La ruta del tema '${topicPath}' no existe.`);
+      return []; 
+    }
+    throw error;
+  }
 }
 
 export async function getCard(topic, cardId) {

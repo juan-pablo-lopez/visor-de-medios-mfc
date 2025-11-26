@@ -1,7 +1,7 @@
 import fs from "fs-extra";
 import path from "path";
 
-const BASE_PATH = path.resolve("content/videos");
+const BASE_PATH = path.resolve("../content/videos");
 
 export async function listVideos() {
   const items = await fs.readdir(BASE_PATH);
@@ -14,9 +14,4 @@ export async function listVideos() {
     }
   }
   return videos;
-}
-
-export function getVideoStream(filename) {
-  const filePath = path.join(BASE_PATH, filename);
-  return fs.createReadStream(filePath);
 }
