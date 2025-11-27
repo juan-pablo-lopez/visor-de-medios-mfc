@@ -17,6 +17,20 @@ export async function listDocs() {
 }
 
 export async function getDocument(id) {
-  const markdownPath = path.join(BASE_PATH, `${id}.md`);
-  return await fs.readFile(markdownPath, "utf-8");
+  const mdPath = path.join(BASE_PATH, `${id}.md`);
+  const pdfPath = path.join(BASE_PATH, `${id}.pdf`);
+
+  if (await fs.pathExists(mdPath)) {
+    const content = await fs.readFile(mdPath, "utf-8");
+    return { type: "md", content };
+  }
+
+  if (await fs.pathExists(pdfPath)) {
+    const pdfBuffer = await fs.readFile(pdfPath);
+    return { type: "pdf", content: pdfBuffer };
+  }
+
+  const err = new Error("Documento no encontrado");
+  err.code = "ENOENT";
+  throw err;
 }

@@ -4,20 +4,11 @@ import path from "path";
 const BASE_PATH = path.resolve("../content/flashcards");
 
 export async function listTopics() {
-  try {
-    const items = await fs.readdir(BASE_PATH, { withFileTypes: true });
-    return items
-      .filter(item => item.isDirectory())
-      .map(item => item.name);
-  } catch (error) {
-    if (error.code === 'ENOENT') {
-      console.log(`Advertencia: La ruta de tarjetas '${BASE_PATH}' no existe.`);
-      return []; 
-    }
-    throw error;
-  }
+  const items = await fs.readdir(BASE_PATH, { withFileTypes: true });
+  return items
+    .filter(item => item.isDirectory())
+    .map(item => item.name);
 }
-
 
 export async function listCards(topic) {
   const topicPath = path.join(BASE_PATH, topic);
@@ -40,17 +31,11 @@ export async function getCard(topic, cardId) {
   return await fs.readJson(cardPath);
 }
 
-/**
- * Devuelve las tarjetas de un topic en orden alfabético.
- */
 export async function getSequentialOrder(topic) {
   const cards = await listCards(topic);
   return cards.sort();
 }
 
-/**
- * Devuelve las tarjetas de un topic en orden aleatorio, sin repetición.
- */
 export async function getRandomOrder(topic) {
   const cards = await listCards(topic);
   const shuffled = cards.sort(() => Math.random() - 0.5);

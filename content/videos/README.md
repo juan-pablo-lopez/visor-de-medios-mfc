@@ -13,10 +13,11 @@ Ejemplo de `video-title.json`:
 
 ```json
 {
-  "id": "video-title",
+  "id": "video-title", // Este debe ser el nombre de archivo sin extensión
   "title": "Título descriptivo",
   "description": "Descripción breve del contenido.",
-  "tags": ["tema1", "subtema"]
+  "tags": ["tema1", "subtema"],
+  "ext": "mp4"
 }
 ```
 

@@ -6,6 +6,12 @@ export default defineConfig({
     globals: true,
     alias: {
       "@": "./src"
+    },
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
+      all: true
     }
+
   }
 });

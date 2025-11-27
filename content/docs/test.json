@@ -2,5 +2,6 @@
   "id": "test",
   "title": "Pruebas Unitarias",
   "description": "Pruebas Unitarias",
-  "tags": ["test"]
+  "tags": ["test"],
+  "ext": "md"
 }

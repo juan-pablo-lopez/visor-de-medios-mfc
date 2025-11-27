@@ -15,7 +15,8 @@ Ejemplo de `tema1.json`:
   "id": "tema1",
   "title": "Tema 1: Introducción",
   "description": "Descripción breve del documento.",
-  "tags": ["intro"]
+  "tags": ["intro"],
+  "ext": "md"
 }
 ````
 
