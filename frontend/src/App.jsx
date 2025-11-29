@@ -13,7 +13,6 @@ export default function App() {
       <MainLayout>
         <Routes>
           <Route path="/" element={<Home />} />
-
           <Route path="/videos" element={<VideosPage />} />
           <Route path="/docs" element={<DocsPage />} />
           <Route path="/flashcards" element={<FlashcardsPage />} />

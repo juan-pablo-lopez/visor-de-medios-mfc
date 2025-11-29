@@ -1,6 +1,5 @@
 import { exec } from "child_process";
 
-// Genera la miniatura si no existe
 export function generateThumbnail(videoPath, thumbPath) {
   return new Promise((resolve, reject) => {
     const cmd = `ffmpeg -ss 00:00:02 -i "${videoPath}" -frames:v 1 -q:v 2 "${thumbPath}" -y`;

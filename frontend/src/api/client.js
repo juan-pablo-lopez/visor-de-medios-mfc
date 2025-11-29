@@ -29,22 +29,18 @@ async function request(path, opts = {}) {
 
   const res = await withTimeout(fetch(url, fetchOpts), timeout ?? DEFAULT_TIMEOUT);
 
-  // For routes that stream binary (video), the caller puede usar res.body o set src
   const contentType = res.headers.get("content-type") || "";
 
   if (!res.ok) {
-    // try parse body as json for error detail
     let body = null;
     try { body = await res.json(); } catch (_) { body = await res.text().catch(() => null); }
     throw new ApiError(`HTTP ${res.status}`, res.status, body);
   }
 
-  // If JSON
   if (contentType.includes("application/json")) {
     return res.json();
   }
 
-  // Otherwise return raw response (caller decides)
   return res;
 }
 

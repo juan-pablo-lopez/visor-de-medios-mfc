@@ -3,13 +3,13 @@ import { marked } from "marked";
 import DOMPurify from "dompurify";
 import { getCard } from "../../api/flashcards";
 
-function MarkdownHTML({ source }) {
+function MarkdownHTML({ source, className }) {
   const rawHtml = marked.parse(source ?? "");
   const safeHtml = DOMPurify.sanitize(rawHtml);
 
   return (
     <div
-      className="p-2 text-center"
+      className={`p-2 text-center prose prose-sm sm:prose-base lg:prose-lg ${className}`}
       dangerouslySetInnerHTML={{ __html: safeHtml }}
     />
   );
@@ -19,7 +19,6 @@ export default function FlashcardGrid({ order = [], topic }) {
   const [cards, setCards] = useState([]);
   const [flipped, setFlipped] = useState([]);
 
-  // Cargar tarjetas
   useEffect(() => {
     let cancelled = false;
 
@@ -41,7 +40,7 @@ export default function FlashcardGrid({ order = [], topic }) {
 
         if (!cancelled) {
           setCards(result);
-          setFlipped(new Array(result.length).fill(false)); // inicializa flips
+          setFlipped(new Array(result.length).fill(false));
         }
       } catch (err) {
         console.error("Error loading grid cards:", err);
@@ -49,10 +48,7 @@ export default function FlashcardGrid({ order = [], topic }) {
     }
 
     loadAllCards();
-
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, [order, topic]);
 
   function toggleFlip(i) {
@@ -64,46 +60,68 @@ export default function FlashcardGrid({ order = [], topic }) {
   }
 
   if (!cards.length) {
-    return <p className="text-gray-500">Cargando tarjetas…</p>;
+    return <p className="text-gray-500 text-center">Cargando tarjetas…</p>;
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+    <div className="
+      grid 
+      grid-cols-1 sm:grid-cols-2 md:grid-cols-3
+      gap-6 p-2
+    ">
       {cards.map((c, i) => {
         const isFlipped = flipped[i];
 
         return (
           <div
             key={i}
-            className="relative w-full h-40 cursor-pointer"
-            style={{ perspective: "1000px" }}
             onClick={() => toggleFlip(i)}
+            className="
+              relative w-full aspect-[3/2]
+              cursor-pointer select-none
+            "
+            style={{ perspective: "1200px" }}
           >
-            {/* Contenedor giratorio */}
             <div
-              className={`absolute inset-0 transition-transform duration-500 transform ${
-                isFlipped ? "rotate-y-180" : ""
-              }`}
+              className={`
+                absolute inset-0 
+                transition-transform duration-500 
+                transform 
+                ${isFlipped ? "rotate-y-180" : ""}
+              `}
               style={{
                 transformStyle: "preserve-3d",
               }}
             >
-              {/* FRONT */}
               <div
-                className="absolute inset-0 bg-gray-200 shadow-lg p-4 rounded-xl backface-hidden flex items-center justify-center overflow-auto"
-                style={{ backfaceVisibility: "hidden" }}
+                className="
+                  absolute inset-0 
+                  bg-[#D9E6E4] backdrop-blur-sm 
+                  border border-white/30 
+                  shadow-md rounded-xl 
+                  flex items-center justify-center p-4 
+                  overflow-auto
+                "
+                style={{ 
+                  backfaceVisibility: "hidden"
+                }}
               >
                 <MarkdownHTML source={c.front} />
               </div>
-
-              {/* BACK */}
               <div
-                className="absolute inset-0 bg-black text-white shadow-lg p-4 rounded-xl flex items-center justify-center overflow-auto rotate-y-180"
-                style={{
-                  backfaceVisibility: "hidden",
+                className="
+                  absolute inset-0 
+                  bg-[#00594C] text-white 
+                  border border-white/20
+                  shadow-xl rounded-xl 
+                  flex items-center justify-center p-4 
+                  overflow-auto rotate-y-180
+                "
+                style={{ 
+                  backfaceVisibility: "hidden"
                 }}
               >
-                <MarkdownHTML source={c.back} />
+                <MarkdownHTML source={c.back} className="text-white" />
               </div>
             </div>
           </div>

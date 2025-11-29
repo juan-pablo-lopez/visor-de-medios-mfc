@@ -17,44 +17,75 @@ export default function VideoPlayer({ url, title, onClose }) {
     return () => video.removeEventListener("error", handleError);
   }, []);
 
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [onClose]);
+
   return (
-    <div className="fixed inset-0 bg-black/90 flex items-center justify-center p-6 z-50">
-      {/* Cerrar */}
-      <button
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={onClose}
-        className="absolute top-4 right-4 text-white text-2xl"
+      />
+      <div
+        className="
+          relative z-10
+          bg-white rounded-2xl shadow-2xl
+          w-[95vw] max-w-6xl
+          h-[80vh] 
+          flex flex-col overflow-hidden
+        "
       >
-        ✕
-      </button>
-
-      <div className="w-full max-w-4xl">
-        <h2 className="text-white text-xl mb-4">{title}</h2>
-
-        {error ? (
-          <div className="text-red-400 text-center">
-            <p>No se pudo reproducir este formato.</p>
-            <p className="text-sm mt-2">
-              Intenta convertirlo a MP4 (H.264 + AAC) para compatibilidad total.
-            </p>
-          </div>
-        ) : (
-          <video
-            ref={videoRef}
-            controls
-            autoPlay
-            className="w-full max-h-[80vh] rounded-lg shadow-lg"
+        <div
+          className="
+            flex items-center justify-between
+            px-6 py-4 border-b
+            bg-white/80 backdrop-blur-sm
+          "
+        >
+          <h2 className="text-lg sm:text-xl font-semibold text-[#00594C]">
+            {title}
+          </h2>
+          <button
+            onClick={onClose}
+            aria-label="Cerrar"
+            className="
+              inline-flex items-center justify-center
+              w-9 h-9 rounded-full
+              text-white bg-black/50 hover:bg-black/70
+              transition
+            "
           >
-            {/* HTML5 solo reconoce el tipo MIME de MP4, pero igual intentamos */}
-            <source src={url} type="video/mp4" />
-            <source src={url} type="video/webm" />
-            <source src={url} type="video/ogg" />
-
-            {/* Para MKV/AVI/MOV no existe MIME estándar, pero dejamos fallback */}
-            <source src={url} />
-
-            Tu navegador no soporta video HTML5.
-          </video>
-        )}
+            ✕
+          </button>
+        </div>
+        <div className="flex-1 bg-white flex items-center justify-center p-2">
+          {error ? (
+            <div className="text-red-400 text-center">
+              <p>No se pudo reproducir este formato.</p>
+              <p className="text-sm mt-2">
+                Convierte a MP4 (H.264 + AAC) para compatibilidad total.
+              </p>
+            </div>
+          ) : (
+            <video
+              ref={videoRef}
+              controls
+              autoPlay
+              className="w-full h-full object-contain rounded-xl"
+            >
+              <source src={url} type="video/mp4" />
+              <source src={url} type="video/webm" />
+              <source src={url} type="video/ogg" />
+              <source src={url} />
+              Tu navegador no soporta video HTML5.
+            </video>
+          )}
+        </div>
       </div>
     </div>
   );

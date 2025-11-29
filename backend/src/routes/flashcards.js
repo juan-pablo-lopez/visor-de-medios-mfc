@@ -11,12 +11,10 @@ const topicOrderRandom = {};
 
 export default async function routes(fastify) {
 
-  /* ---- LISTAR TOPICS ---- */
   fastify.get("/", async () => ({
     topics: await listTopics(),
   }));
 
-  /* ---- LISTAR TARJETAS DE UN TOPIC ---- */
   fastify.get("/:topic", async (req, reply) => {
     const { topic } = req.params;
     return {
@@ -25,15 +23,11 @@ export default async function routes(fastify) {
     };
   });
 
-  /* ---- ACCESO DIRECTO A UNA TARJETA ---- */
   fastify.get("/:topic/card/:id", async (req) => {
     const { topic, id } = req.params;
     return await getCard(topic, id);
   });
 
-  /* ====================================================== */
-  /*                    SECUENCIAL                          */
-  /* ====================================================== */
   fastify.get("/:topic/sequence/start", async (req, reply) => {
     const { topic } = req.params;
 
@@ -72,9 +66,6 @@ export default async function routes(fastify) {
     };
   });
 
-  /* ===================================================== */
-  /*                    ALEATORIO                          */
-  /* ===================================================== */
   fastify.get("/:topic/random/start", async (req, reply) => {
     const { topic } = req.params;
 
@@ -89,7 +80,6 @@ export default async function routes(fastify) {
     return { topic, order };
   });
 
-  // Endpoint para obtener la siguiente tarjeta
   fastify.get("/:topic/random/next/:index", async (req, reply) => {
     const { topic, index } = req.params;
     const idx = parseInt(index);

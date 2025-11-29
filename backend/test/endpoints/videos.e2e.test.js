@@ -57,7 +57,6 @@ describe("Videos API", () => {
     expect(JSON.parse(res.text)).toEqual(REAL_DIR_CONTENT);
   });
 
-
   it("GET /api/videos/stream/:filename should return a 200 response", async () => {
     const res = await request(app.server).get(`/api/videos/stream/${TEST_VIDEO}`);
     expect(res.status).toBe(200);

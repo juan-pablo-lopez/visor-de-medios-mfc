@@ -7,10 +7,8 @@ const BASE_PATH = path.resolve("../content/videos");
 
 export default async function routes(fastify) {
 
-  // Lista de videos
   fastify.get("/", async () => listVideos());
 
-  // Servir thumbnails
   fastify.get("/thumbnails/:id", async (req, reply) => {
     const filePath = path.join(BASE_PATH, `${req.params.id}`);
     console.log(">>> " + filePath);
@@ -21,7 +19,6 @@ export default async function routes(fastify) {
     return fs.createReadStream(filePath);
   });
 
-  // Streaming con soporte de rangos
   fastify.get("/stream/:filename", async (req, reply) => {
     const { filename } = req.params;
     const filePath = path.join(BASE_PATH, filename);
@@ -52,7 +49,6 @@ export default async function routes(fastify) {
     const range = req.headers.range;
 
     reply.header("Accept-Ranges", "bytes");
-    //reply.header("Content-Type", "video/mp4"); //TODO: descomentar si falla
 
     if (req.method === "HEAD") {
       reply.header("Content-Length", fileSize);

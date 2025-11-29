@@ -1,1 +1,75 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  --bg-base: #fbfaf8;
+}
+
+body {
+  background-color: var(--bg-base);
+  background-image: url('/pattern.svg');
+  background-repeat: repeat;
+  background-size: 60px 60px;
+  background-position: -20px -10px;
+  color-scheme: light;
+}
+
+.react-pdf__Page {
+  margin: 0 !important;
+}
+
+.react-pdf__Page canvas {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+.pdf-thumb {
+  background: #fff;
+  line-height: 0;
+}
+
+@keyframes slide-prev {
+  0% {
+    transform: translateX(0) rotateY(0);
+  }
+  10% {
+    transform: translateX(25%) rotateY(-10deg);
+  }
+  30% {
+    transform: translateX(50%) rotateY(-10deg);
+  }
+  50% {
+    transform: translateX(75%) rotateY(-10deg);
+  }
+  100% {
+    transform: translateX(0) rotateY(0);
+  }
+}
+
+.animate-slide-prev {
+  animation: slide-prev 0.5s ease;
+}
+
+@keyframes slide-next {
+  0% {
+    transform: translateX(0) rotateY(0);
+  }
+  10% {
+    transform: translateX(-25%) rotateY(10deg);
+  }
+  30% {
+    transform: translateX(-50%) rotateY(10deg);
+  }
+  50% {
+    transform: translateX(-75%) rotateY(10deg);
+  }
+  100% {
+    transform: translateX(0) rotateY(0);
+  }
+}
+
+.animate-slide-next {
+  animation: slide-next 0.5s ease;
+}
+

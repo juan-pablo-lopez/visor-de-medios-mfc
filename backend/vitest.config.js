@@ -12,6 +12,5 @@ export default defineConfig({
       reporter: ["text", "html"],
       all: true
     }
-
   }
 });

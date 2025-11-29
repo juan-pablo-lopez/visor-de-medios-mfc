@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import request from "supertest";
-import * as fs from "fs/promises";
 import * as serverModule from "../../src/server.js";
 
 const buildServer = serverModule.buildServer;
@@ -69,10 +68,7 @@ describe("Flashcards API", () => {
     let index = 0;
 
     await Promise.all(cardsResponse.order.map(async card => {
-      // Obtenemos los valores de la tarjeta actual
       const currentCard = CARD_CONTENT.find(c => c.id === card);
-
-      // Invocamos la API para obtener el valor de la tarjeta por índice
       const response = await request(app.server).get(`/api/flashcards/${TOPIC_DIRECTORY}/sequence/next/${index++}`);
       expect(response.status).toBe(200);
       const responseJson = JSON.parse(response.text);
@@ -105,10 +101,7 @@ describe("Flashcards API", () => {
     let index = 0;
 
     await Promise.all(cardsResponse.order.map(async card => {
-      // Obtenemos los valores de la tarjeta actual
       const currentCard = CARD_CONTENT.find(c => c.id === card);
-
-      // Invocamos la API para obtener el valor de la tarjeta por índice
       const response = await request(app.server).get(`/api/flashcards/${TOPIC_DIRECTORY}/random/next/${index++}`);
       expect(response.status).toBe(200);
       const responseJson = JSON.parse(response.text);
