@@ -21,5 +21,7 @@ Ejemplo de `video-title.json`:
 }
 ```
 
+**NOTA**: el archivo de miniatura `JPG` con el mismo nombre del `id` del `JSON` se generará automáticamente si no existe o se usará una miniatura predeterminada en caso de no poderse generar.
+
 Los archivos `.avi`, `.mkv`, `mov`, `mp4` serán ignorados por Git.
 

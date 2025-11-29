@@ -1,6 +1,6 @@
 # Documentos (Markdown)
 
-Cada documento consiste en un archivo `.md` y un archivo de metadatos `.json` opcional:
+Cada documento consiste en un archivo `.md` o `.pdf` y un archivo de metadatos `.json` opcional:
 
 ```
 tema1.md
@@ -19,5 +19,3 @@ Ejemplo de `tema1.json`:
   "ext": "md"
 }
 ````
-
-Puedes incluir ejemplos de estructura, pero **no PDFs ni archivos grandes**.

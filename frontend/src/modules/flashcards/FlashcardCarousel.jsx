@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 
+import PrevIcon from "@/assets/prev.svg";
+import NextIcon from "@/assets/next.svg";
+
 function MarkdownHTML({ source, className }) {
   const rawHtml = marked.parse(source ?? "");
   const safeHtml = DOMPurify.sanitize(rawHtml);
@@ -69,7 +72,7 @@ export default function FlashcardCarousel({ order = [], next, prev, card }) {
           title="Anterior"
         >
           <div className="absolute left-7 top-1/2 -translate-y-1/2">
-            <img src="/src/assets/prev.svg" className="w-10 h-10" alt="Anterior" title="Anterior" />
+            <img src={PrevIcon} className="w-10 h-10" alt="Anterior" title="Anterior" />
           </div>
         </div>
       )}
@@ -134,7 +137,7 @@ export default function FlashcardCarousel({ order = [], next, prev, card }) {
           title="Siguiente"
         >
           <div className="absolute right-7 top-1/2 -translate-y-1/2">
-            <img src="/src/assets/next.svg" className="w-10 h-10" alt="Siguiente" title="Siguiente" />
+            <img src={NextIcon} className="w-10 h-10" alt="Siguiente" title="Siguiente" />
           </div>
         </div>
       )}

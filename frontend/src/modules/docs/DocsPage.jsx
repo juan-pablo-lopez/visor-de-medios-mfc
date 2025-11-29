@@ -3,6 +3,9 @@ import { listDocs } from "../../api/docs";
 import PdfViewer from "./PdfViewer";
 import MarkdownViewer from "./MarkdownViewer";
 
+import PdfIcon from "@/assets/pdf.svg";
+import MdIcon from "@/assets/md.svg";
+
 export default function DocsPage() {
   const [docs, setDocs] = useState([]);
   const [activeDoc, setActiveDoc] = useState(null);
@@ -43,7 +46,7 @@ export default function DocsPage() {
             <div className="relative w-full h-48 flex items-center justify-center bg-gradient-to-br from-white/70 to-white/40">
               {doc.ext === "pdf" ? (
                 <img
-                  src="/src/assets/pdf.svg"
+                  src={PdfIcon}
                   alt="PDF icon"
                   className="
                     w-30 h-30
@@ -53,7 +56,7 @@ export default function DocsPage() {
                 />
               ) : (
                 <img
-                  src="/src/assets/md.svg"
+                  src={MdIcon}
                   alt="Markdown icon"
                   className="
                     w-30 h-30

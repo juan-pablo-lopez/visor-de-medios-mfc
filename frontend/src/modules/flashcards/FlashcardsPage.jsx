@@ -3,6 +3,9 @@ import { listTopics, startRandomOrder, getRandomNext } from "../../api/flashcard
 import FlashcardCarousel from "./FlashcardCarousel";
 import FlashcardGrid from "./FlashcardGrid";
 
+import GridIcon from "@/assets/grid.svg";
+import CarouselIcon from "@/assets/carousel.svg";
+
 function TopicCard({ topic, onClick }) {
   return (
     <div
@@ -20,7 +23,7 @@ function TopicCard({ topic, onClick }) {
     >
       <div className="relative w-full flex-1 overflow-hidden">
         <img
-          src={`/src/assets/flashcards/${topic.id}.svg`}
+          src={`/flashcards/${topic.id}.svg`}
           alt={topic.display}
           className="
             w-full h-full object-contain p-6
@@ -160,8 +163,8 @@ export default function FlashcardsPage() {
                 >
                   <img
                     src={mode === "carousel"
-                      ? "/src/assets/grid.svg"
-                      : "/src/assets/carousel.svg"
+                      ? GridIcon
+                      : CarouselIcon
                     }
                     alt={mode === "carousel"
                       ? "Cambiar a Tabla"

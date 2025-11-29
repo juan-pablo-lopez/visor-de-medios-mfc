@@ -4,6 +4,9 @@ import pdfWorker from "pdfjs-dist/build/pdf.worker.mjs?url";
 
 pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
 
+import PrevIcon from "@/assets/prev.svg";
+import NextIcon from "@/assets/next.svg";
+
 export default function PdfViewer({ url }) {
   const [numPages, setNumPages] = useState(null);
   const [page, setPage] = useState(1);
@@ -75,7 +78,7 @@ export default function PdfViewer({ url }) {
                 disabled:opacity-40 disabled:hover:bg-black/30
               "
             >
-              <img src="/src/assets/prev.svg" alt="Anterior" className="w-6 h-6" />
+              <img src={PrevIcon} alt="Anterior" className="w-6 h-6" />
             </button>
             <span className="text-sm text-gray-700">
               Página <span className="font-black text-[#00594C]">{page}</span> / {numPages}
@@ -90,7 +93,7 @@ export default function PdfViewer({ url }) {
                 disabled:opacity-40 disabled:hover:bg-black/30
               "
             >
-              <img src="/src/assets/next.svg" alt="Siguiente" className="w-6 h-6" />
+              <img src={NextIcon} alt="Siguiente" className="w-6 h-6" />
             </button>
           </div>
         )}

@@ -2,7 +2,7 @@ import fs from "fs-extra";
 import path from "path";
 import { generateThumbnail } from "../utils/thumbnails.js";
 
-const BASE_PATH = path.resolve("../content/videos");
+const BASE_PATH = path.resolve("/app/content/videos");
 
 export async function listVideos() {
   const items = await fs.readdir(BASE_PATH);
