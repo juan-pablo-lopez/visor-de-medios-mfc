@@ -6,7 +6,6 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Ruta segura, 100% correcta en Docker y en local
 const BASE_PATH = path.resolve(__dirname, "../../../content/videos");
 
 export default async function routes(fastify) {

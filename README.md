@@ -61,6 +61,19 @@ npm run dev
 
 Ambos servicios se ejecutan en un Dockerfile.
 
+**Construir la imagen**
+``` bash
+docker build -t visor-medios-mfc:latest .
+docker tag visor-medios-mfc:latest jplopezs/visor-medios-mfc:1.0.0
+docker push jplopezs/visor-medios-mfc:1.0.0 
+```
+
+**Ejecutar la imagen**
+``` bash
+docker run -p 3080:3080 visor-medios-mfc:latest
+```
+
+**Descargar desde Docker Hub**
 ``` bash
 docker pull jplopezs/visor-medios-mfc
 ```

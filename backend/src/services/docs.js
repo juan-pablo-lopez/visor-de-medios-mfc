@@ -1,7 +1,11 @@
 import fs from "fs-extra";
 import path from "path";
+import { fileURLToPath } from "url";
 
-const BASE_PATH = path.resolve("/app/content/docs");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const BASE_PATH = path.resolve(__dirname, "../../../content/docs");
 
 export async function listDocs() {
   const items = await fs.readdir(BASE_PATH);

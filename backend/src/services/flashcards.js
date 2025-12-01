@@ -1,7 +1,11 @@
 import fs from "fs-extra";
 import path from "path";
+import { fileURLToPath } from "url";
 
-const BASE_PATH = path.resolve("/app/content/flashcards");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const BASE_PATH = path.resolve(__dirname, "../../../content/flashcards");
 
 export async function listTopics() {
   const items = await fs.readdir(BASE_PATH, { withFileTypes: true });
