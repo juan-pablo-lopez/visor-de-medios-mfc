@@ -64,10 +64,3 @@ Ambos servicios se ejecutan en un Dockerfile.
 ``` bash
 docker pull jplopezs/visor-medios-mfc
 ```
-
-------------------------------------------------------------------------
-
-## Producción
-
-Se recomienda: - Docker Compose - Reverse proxy (NGINX) - HTTPS mediante
-Let's Encrypt
